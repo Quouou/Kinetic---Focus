@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22' # Matches your Dockerfile Node version
+        cache: 'npm'
+
+    - name: Install dependencies
+      # Using npm ci for clean, reliable installs based on package-lock.json
+      # If you don't have a package-lock.json yet, you can change this to npm install
+      run: npm ci || npm install
+
+    - name: Check types / Lint
+      run: npm run lint
+
+    - name: Run tests
+      run: npm run test
+
+    - name: Build application
+      run: npm run build
+      
+    - name: Test Docker build
+      run: docker build -t kinetic-web:test .
