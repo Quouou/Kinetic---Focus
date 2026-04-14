@@ -24,6 +24,9 @@ jobs:
       # Using npm ci for clean, reliable installs based on package-lock.json
       # If you don't have a package-lock.json yet, you can change this to npm install
       run: npm ci || npm install
+      
+    - name: Generate Prisma Client
+      run: npx prisma generate
 
     - name: Check types / Lint
       run: npm run lint
