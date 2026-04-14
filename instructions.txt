@@ -1,0 +1,10 @@
+Making repo changes:
+git checkout -b feature/my-change
+
+git add .
+git commit -m '...'
+
+git push -u origin feature/mychange
+
+
+// Wait for pr and CI to complete tests
