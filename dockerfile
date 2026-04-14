@@ -9,9 +9,6 @@ RUN npm install
 # Copy application code
 COPY . .
 
-RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy?schema=public"
-RUN npx prisma generate
-
 # Expose the default port
 EXPOSE 3000
 
