@@ -1,11 +1,16 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
+import { PrismaClient } from './src/generated/prisma';
+import { PrismaPg } from '@prisma/adapter-pg';
 import path from "path";
 import { fileURLToPath } from "url";
 import { z } from "zod";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! });
+const prisma = new PrismaClient({ adapter });
 
 // Data Validation Schemas
 const CheckInSchema = z.object({
